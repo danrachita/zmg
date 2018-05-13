@@ -1600,31 +1600,31 @@ int64_t GetBlockValue(int nHeight)
 
     if (nHeight == 0) {
       nSubsidy = 150000 * COIN;
-    } else if (nHeight > 0 && nHeight <= 7200) {
+    } else if (nHeight > 0 && nHeight <= 7200 + 1440 * 2) {
       nSubsidy = 1 * COIN;
-    } else if (nHeight > 7200 && nHeight <= 50400) {
+    } else if (nHeight > 7200 + 1440 * 2 && nHeight <= 50400 + 1440 * 2) {
       nSubsidy = 75 * COIN;
-    } else if (nHeight > 50400 && nHeight <= 72000) {
+    } else if (nHeight > 50400 + 1440 * 2 && nHeight <= 72000 + 1440 * 2) {
       nSubsidy = 60 * COIN;
-    } else if (nHeight > 72000 && nHeight <= 93600) {
+    } else if (nHeight > 72000 + 1440 * 2 && nHeight <= 93600 + 1440 * 2) {
       nSubsidy = 48 * COIN;
-    } else if (nHeight > 93600 && nHeight <= 115200) {
+    } else if (nHeight > 93600 + 1440 * 2 && nHeight <= 115200 + 1440 * 2) {
       nSubsidy = 38 * COIN;
-    } else if (nHeight > 115200 && nHeight <= 136800) {
+    } else if (nHeight > 115200 + 1440 * 2 && nHeight <= 136800 + 1440 * 2) {
       nSubsidy = 30 * COIN;
-    } else if (nHeight > 136800 && nHeight <= 158400) {
+    } else if (nHeight > 136800 + 1440 * 2 && nHeight <= 158400 + 1440 * 2) {
       nSubsidy = 24 * COIN;
-    } else if (nHeight > 158400 && nHeight <= 180000) {
+    } else if (nHeight > 158400 + 1440 * 2 && nHeight <= 180000 + 1440 * 2) {
       nSubsidy = 19 * COIN;
-    } else if (nHeight > 180000 && nHeight <= 201600) {
+    } else if (nHeight > 180000 + 1440 * 2 && nHeight <= 201600 + 1440 * 2) {
       nSubsidy = 15 * COIN;
-    } else if (nHeight > 201600 && nHeight <= 223200) {
+    } else if (nHeight > 201600 + 1440 * 2 && nHeight <= 223200 + 1440 * 2) {
       nSubsidy = 12 * COIN;
-    } else if (nHeight > 223200 && nHeight <= 244800) {
+    } else if (nHeight > 223200 + 1440 * 2 && nHeight <= 244800 + 1440 * 2) {
       nSubsidy = 10 * COIN;
-    } else if (nHeight > 244800 && nHeight <= 266400) {
+    } else if (nHeight > 244800 + 1440 * 2 && nHeight <= 266400 + 1440 * 2) {
       nSubsidy = 8 * COIN;
-    } else if (nHeight > 266400) {
+    } else if (nHeight > 266400 + 1440 * 2) {
       nSubsidy = 6 * COIN;
     }
 
