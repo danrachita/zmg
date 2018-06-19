@@ -1695,9 +1695,9 @@ Kontroller adressen og prøv igen.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/zminingdev/zmgcoin-translations</source>
+https://www.transifex.com/zminingcommunity/zmgcoin-translations</source>
         <translation>Det valgte sprog mangler, eller oversættelsen er mangelfuld. Hjælp ved at bidrage med oversættelser her:
-https://www.transifex.com/zminingdev/zmgcoin-translations</translation>
+https://www.transifex.com/zminingcommunity/zmgcoin-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

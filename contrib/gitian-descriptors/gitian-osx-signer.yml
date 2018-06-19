@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/zminingdev/zmg-detached-sigs.git"
+- "url": "https://github.com/zminingcommunity/zmg-detached-sigs.git"
   "dir": "signature"
 files:
 - "zmg-osx-unsigned.tar.gz"
