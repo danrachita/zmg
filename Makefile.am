@@ -199,7 +199,7 @@ test_zmg_coverage.info: baseline_filtered_combined.info test_zmg_filtered.info
 total_coverage.info:  baseline_filtered_combined.info test_zmg_filtered.info block_test_filtered.info
 	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_zmg_filtered.info -a block_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
 
-test_zmining.ioverage/.dirstamp:  test_zmg_coverage.info
+test_zminingcommunity.ioverage/.dirstamp:  test_zmg_coverage.info
 	$(GENHTML) -s $< -o $(@D)
 	@touch $@
 
@@ -207,7 +207,7 @@ total.coverage/.dirstamp: total_coverage.info
 	$(GENHTML) -s $< -o $(@D)
 	@touch $@
 
-cov: test_zmining.ioverage/.dirstamp total.coverage/.dirstamp
+cov: test_zminingcommunity.ioverage/.dirstamp total.coverage/.dirstamp
 
 endif
 
@@ -226,5 +226,4 @@ CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 clean-local:
-	rm -rf test_zmining.ioverage/ total.coverage/ $(OSX_APP)
-
+	rm -rf test_zminingcommunity.ioverage/ total.coverage/ $(OSX_APP)

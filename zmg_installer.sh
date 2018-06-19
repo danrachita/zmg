@@ -6,8 +6,8 @@ CONFIGFOLDER='/root/.zmg'
 COIN_DAEMON='zmgd'
 COIN_CLI='zmg-cli'
 COIN_PATH='/usr/local/bin/'
-COIN_REPO='https://github.com/zminingdev/zmg.git'
-COIN_TGZ='https://github.com/zminingdev/zmg/releases/download/v3.0.0.1/ZMINING-3.0-LINUX-GUI.tar.gz'
+COIN_REPO='https://github.com/zminingcommunity/zmg.git'
+COIN_TGZ='https://github.com/zminingcommunity/zmg/releases/download/v3.0.0.1/ZMINING-3.0-LINUX-GUI.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='zmg'
 COIN_PORT=29293
@@ -25,7 +25,7 @@ function compile_node() {
   git clone $COIN_REPO $TMP_FOLDER >/dev/null 2>&1
   compile_error
   cd $TMP_FOLDER
-  chmod +x ./autogen.sh 
+  chmod +x ./autogen.sh
   chmod +x ./share/genbuild.sh
   chmod +x ./src/leveldb/build_detect_platform
   ./autogen.sh

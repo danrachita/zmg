@@ -1,1 +1,1 @@
-#### Zmg Core Wallet
+#### Zmining Core Wallet

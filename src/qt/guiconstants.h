@@ -50,7 +50,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 35
 
 #define QAPP_ORG_NAME "Zmg"
-#define QAPP_ORG_DOMAIN "zmining.io"
+#define QAPP_ORG_DOMAIN "zminingcommunity.io"
 #define QAPP_APP_NAME_DEFAULT "Zmg-Qt"
 #define QAPP_APP_NAME_TESTNET "Zmg-Qt-testnet"
 
