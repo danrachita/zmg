@@ -1,1 +1,1 @@
-#### Zmining Core Wallet
+#### Zmining Community code
