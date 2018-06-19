@@ -116,6 +116,6 @@ you can monitor its process by looking at the debug.log file, like this:
 Other commands:
 -------
 
-    ./zmgd -daemon # to start the zmg daemon.
+    ./zmgd -daemon # to start the Zmining Daemon.
     ./zmg-cli --help  # for a list of command-line options.
     ./zmg-cli help    # When the daemon is running, to get a list of RPC commands

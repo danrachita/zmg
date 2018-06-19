@@ -16,7 +16,7 @@ BITCOIND_USER=${BITCOIND_USER:-zmg}
 BITCOIND_GROUP=${BITCOIND_GROUP:-zmg}
 BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/zmgd}
 
-name="Zmg Daemon"
+name="Zmining Daemon"
 description="ZMG crypto-currency p2p network daemon"
 
 command="/usr/bin/zmgd"
