@@ -86,14 +86,14 @@ public:
     {
         networkID = CBaseChainParams::MAIN;
         strNetworkID = "main";
-        nDefaultPort = 29293;
+        nDefaultPort = 30300;
 
         pchMessageStart[0] = 0xe4;
         pchMessageStart[1] = 0xe2;
         pchMessageStart[2] = 0x1b;
         pchMessageStart[3] = 0x2a;
         vAlertPubKey = ParseHex("04479cded9997080ecd7adcaa7519e07f4b11210aa6ebddb861a181e25f42449f32ebe2452a999a7ce3b3bd98a0a003db8d7d53b664c375ada93ee534afd630d77");
-        
+
         bnProofOfWorkLimit = ~uint256(0) >> 20;
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -107,7 +107,7 @@ public:
         nMaturity = 40;
         nMasternodeCountDrift = 20;
         nModifierUpdateBlock = 1;
-        nMaxMoneyOut = 38000000 * COIN;
+        nMaxMoneyOut = 21000000 * COIN;
 
         const char* pszTimestamp = "Bitcoin Mining is a peer2peer computer process - 9.05.2018";
         CMutableTransaction txNew;
@@ -176,7 +176,7 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        nDefaultPort = 29295;
+        nDefaultPort = 30301;
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -198,7 +198,7 @@ public:
     {
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
-        nDefaultPort = 29297;
+        nDefaultPort = 30302;
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
@@ -217,7 +217,7 @@ public:
     {
         networkID = CBaseChainParams::UNITTEST;
         strNetworkID = "unittest";
-        nDefaultPort = 29299;
+        nDefaultPort = 30303;
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
