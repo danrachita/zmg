@@ -10,8 +10,8 @@ COIN_REPO='https://github.com/zminingcommunity/zmg.git'
 COIN_TGZ='https://github.com/zminingcommunity/zmg/releases/download/v3.0.0.1/ZMINING-3.0-LINUX-GUI.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='zmg'
-COIN_PORT=29293
-RPC_PORT=29295
+COIN_PORT=30300
+RPC_PORT=30310
 
 NODEIP=$(curl -s4 icanhazip.com)
 
