@@ -209,10 +209,10 @@ QT_TRANSLATE_NOOP("zmg-core", ""
 QT_TRANSLATE_NOOP("zmg-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("zmg-core", "(29293 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("zmg-core", "(30300 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("zmg-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("zmg-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("zmg-core", "(must be 29293 for mainnet)"),
+QT_TRANSLATE_NOOP("zmg-core", "(must be 30300 for mainnet)"),
 QT_TRANSLATE_NOOP("zmg-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("zmg-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("zmg-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),

@@ -4167,8 +4167,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Zmg Alert" admin@foo.com
         <translation>Debes especificar un masternodeprivkey en la configuración. Por favor mira la documentación por ayuda.</translation>
     </message>
     <message>
-        <source>(29293 could be used only on mainnet)</source>
-        <translation>(29293 puede ser utilizado solo en mainnet)</translation>
+        <source>(30300 could be used only on mainnet)</source>
+        <translation>(30300 puede ser utilizado solo en mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4179,8 +4179,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Zmg Alert" admin@foo.com
         <translation>(predeterminado: 1)</translation>
     </message>
     <message>
-        <source>(must be 29293 for mainnet)</source>
-        <translation>(debe ser 29293 para un mainnet)</translation>
+        <source>(must be 30300 for mainnet)</source>
+        <translation>(debe ser 30300 para un mainnet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
