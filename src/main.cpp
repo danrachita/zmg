@@ -1610,15 +1610,6 @@ int64_t GetSubsidy(int nHeight)
 
         nSubsidy = 50 * COIN;
         nSubsidy = pow(0.9, halvings) * nSubsidy;
-/*
-        // Force block reward to zero when right shift is undefined.
-        if (halvings >= 64)
-            return 0;
-
-        nSubsidy =  0.5 * COIN;
-        // Subsidy is cut in half every 500,000 blocks
-        nSubsidy >>= halvings;
-*/
     }
 
     return nSubsidy;
