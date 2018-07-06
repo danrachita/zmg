@@ -1599,16 +1599,16 @@ int64_t GetSubsidy(int nHeight)
     int64_t nSubsidy = 0;
 
     if (nHeight == 0) {
-        nSubsidy = 19000000.00 * COIN;
-    } else if (nHeight <= Params().LAST_POW_BLOCK()) {     // Premine
+        nSubsidy = 2500000 * COIN;   // Premine
+    } else if (nHeight <= Params().LAST_POW_BLOCK()) {
         nSubsidy = 2000 * COIN;
-    } else if (nHeight > 3046100) {
+    } else if (nHeight > 500000) {
         nSubsidy = 5 * COIN;
     } else {
-        // halving starting 501
+        // halving starting 401
         int halvings = (nHeight - Params().LAST_POW_BLOCK() - 1) / Params().SubsidyHalvingInterval();  // 64800
 
-        nSubsidy = 700 * COIN;
+        nSubsidy = 50 * COIN;
         nSubsidy = pow(0.9, halvings) * nSubsidy;
 /*
         // Force block reward to zero when right shift is undefined.
