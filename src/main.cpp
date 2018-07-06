@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 ZMINING Developers
+// Copyright (c) 2018 Zmining Community Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -42,7 +42,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-#error "ZMG cannot be compiled without assertions."
+#error "Zmining cannot be compiled without assertions."
 #endif
 
 /**
@@ -69,7 +69,7 @@ bool fCheckBlockIndex = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
 
-unsigned int nStakeMinAge = 60 * 60;
+unsigned int nStakeMinAge = 12 * 60 * 60; // 12 hours
 int64_t nReserveBalance = 0;
 
 /** Fees smaller than this (in duffs) are considered zero fee (for relaying and mining)
@@ -1594,51 +1594,69 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex)
     return true;
 }
 
-int64_t GetBlockValue(int nHeight)
+int64_t GetSubsidy(int nHeight)
 {
-    int64_t nSubsidy = 1 * COIN;
+    int64_t nSubsidy = 0;
 
     if (nHeight == 0) {
-      nSubsidy = 150000 * COIN;
-    } else if (nHeight > 0 && nHeight <= 7200 + 1440 * 2) {
-      nSubsidy = 1 * COIN;
-    } else if (nHeight > 7200 + 1440 * 2 && nHeight <= 50400 + 1440 * 2) {
-      nSubsidy = 75 * COIN;
-    } else if (nHeight > 50400 + 1440 * 2 && nHeight <= 72000 + 1440 * 2) {
-      nSubsidy = 60 * COIN;
-    } else if (nHeight > 72000 + 1440 * 2 && nHeight <= 93600 + 1440 * 2) {
-      nSubsidy = 48 * COIN;
-    } else if (nHeight > 93600 + 1440 * 2 && nHeight <= 115200 + 1440 * 2) {
-      nSubsidy = 38 * COIN;
-    } else if (nHeight > 115200 + 1440 * 2 && nHeight <= 136800 + 1440 * 2) {
-      nSubsidy = 30 * COIN;
-    } else if (nHeight > 136800 + 1440 * 2 && nHeight <= 158400 + 1440 * 2) {
-      nSubsidy = 24 * COIN;
-    } else if (nHeight > 158400 + 1440 * 2 && nHeight <= 180000 + 1440 * 2) {
-      nSubsidy = 19 * COIN;
-    } else if (nHeight > 180000 + 1440 * 2 && nHeight <= 201600 + 1440 * 2) {
-      nSubsidy = 15 * COIN;
-    } else if (nHeight > 201600 + 1440 * 2 && nHeight <= 223200 + 1440 * 2) {
-      nSubsidy = 12 * COIN;
-    } else if (nHeight > 223200 + 1440 * 2 && nHeight <= 244800 + 1440 * 2) {
-      nSubsidy = 10 * COIN;
-    } else if (nHeight > 244800 + 1440 * 2 && nHeight <= 266400 + 1440 * 2) {
-      nSubsidy = 8 * COIN;
-    } else if (nHeight > 266400 + 1440 * 2) {
-      nSubsidy = 6 * COIN;
+        nSubsidy = 19000000.00 * COIN;
+    } else if (nHeight <= Params().LAST_POW_BLOCK()) {     // Premine
+        nSubsidy = 2000 * COIN;
+    } else if (nHeight > 3046100) {
+        nSubsidy = 5 * COIN;
+    } else {
+        // halving starting 501
+        int halvings = (nHeight - Params().LAST_POW_BLOCK() - 1) / Params().SubsidyHalvingInterval();  // 64800
+
+        nSubsidy = 700 * COIN;
+        nSubsidy = pow(0.9, halvings) * nSubsidy;
+/*
+        // Force block reward to zero when right shift is undefined.
+        if (halvings >= 64)
+            return 0;
+
+        nSubsidy =  0.5 * COIN;
+        // Subsidy is cut in half every 500,000 blocks
+        nSubsidy >>= halvings;
+*/
     }
 
     return nSubsidy;
 }
 
+int64_t GetBlockValue(int nHeight)
+{
+    int64_t nBlockValue = GetSubsidy(nHeight);
+
+    // Check if we reached the coin max supply.
+    int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
+
+    if (nMoneySupply + nBlockValue >= Params().MaxMoneyOut())
+        nBlockValue = Params().MaxMoneyOut() - nMoneySupply;
+
+    if (nMoneySupply >= Params().MaxMoneyOut())
+        nBlockValue = 0;
+
+    if (nHeight <= Params().LAST_POW_BLOCK()) {
+        return nBlockValue;
+    }
+    else {
+        return (nBlockValue * (100 - Params().SubsidyBudgetPercentage())) / 100;  // 5%
+    }
+
+    return nBlockValue;
+}
+
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
     int64_t ret = 0;
+    int64_t nSubsidy = GetSubsidy(nHeight);
 
-    ret = blockValue * 0.8;
-
-    return ret;
-}
+    if (nHeight <= Params().LAST_POW_BLOCK()) {
+        ret = 0;
+    } else {
+        ret = nSubsidy * 0.80;
+    }
 
 bool IsInitialBlockDownload()
 {
@@ -1653,6 +1671,9 @@ bool IsInitialBlockDownload()
     if (!state)
         lockIBDState = true;
     return state;
+}
+
+    return ret;
 }
 
 bool fLargeWorkForkFound = false;
@@ -5326,7 +5347,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 }
 
 // Note: whenever a protocol update is needed toggle between both implementations (comment out the formerly active one)
-//       so we can leave the existing clients untouched (old SPORK will stay on so they don't see even older clients). 
+//       so we can leave the existing clients untouched (old SPORK will stay on so they don't see even older clients).
 //       Those old clients won't react to the changes of the other (new) SPORK because at the time of their implementation
 //       it was the one which was commented out
 int ActiveProtocol()
@@ -5344,9 +5365,9 @@ int ActiveProtocol()
 */
 
 
-    // SPORK_15 is used for 70910. Nodes < 70910 don't see it and still get their protocol version via SPORK_14 and their 
+    // SPORK_15 is used for 70910. Nodes < 70910 don't see it and still get their protocol version via SPORK_14 and their
     // own ModifierUpgradeBlock()
- 
+
     if (IsSporkActive(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2))
             return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
 

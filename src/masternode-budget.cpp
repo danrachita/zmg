@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 ZMINING Developers
+// Copyright (c) 2018 Zmining Community Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -805,18 +805,20 @@ CAmount CBudgetManager::GetTotalBudget(int nHeight)
 {
     if (chainActive.Tip() == NULL) return 0;
 
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        CAmount nSubsidy = 500 * COIN;
-        return ((nSubsidy / 100) * 10) * 146;
+    int64_t nSubsidy = GetSubsidy(nHeight);
+
+    // get block value and calculate from that
+    int64_t nBudgetSubsidy = 0;
+
+    if (nHeight <= Params().LAST_POW_BLOCK()) {
+        return 0;
+    }
+    else {
+        nBudgetSubsidy = nSubsidy * (Params().SubsidyBudgetPercentage()) / 100;  // 5%
     }
 
-    //get block value and calculate from that
-    CAmount nSubsidy = GetBlockValue(nHeight);
-
-    // Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
-    // return ((nSubsidy / 100) * 10) * 1440 * 30;
-
-    return 0; // budget off
+    // Amount of blocks in a months period of time
+    return nBudgetSubsidy * 30 * 24 * 60 * 60 / Params().TargetSpacing();
 }
 
 void CBudgetManager::NewBlock()

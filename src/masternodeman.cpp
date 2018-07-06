@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 ZMINING Developers
+// Copyright (c) 2018 Zmining Community Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -373,7 +373,7 @@ int CMasternodeMan::stable_size ()
 
     return nStable_size;
 }
-    
+
 int CMasternodeMan::CountEnabled(int protocolVersion)
 {
     int i = 0;
@@ -514,7 +514,7 @@ CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight
 
     // Look at 1/10 of the oldest nodes (by last payment), calculate their scores and pay the best one
     //  -- This doesn't look at who is being paid in the +8-10 blocks, allowing for double payments very rarely
-    //  -- 1/100 payments should be a double payment on mainnet - (1/(3000/10))*2
+    //  -- 1/100 payments should be a double payment on mainnet - (1/(25000/10))*2
     //  -- (chance per block * chances before IsScheduled will fire)
     int nTenthNetwork = CountEnabled() / 10;
     int nCountTenth = 0;
@@ -1012,7 +1012,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
             BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
             if (mi != mapBlockIndex.end() && (*mi).second) {
-                CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 3000 ZMG tx -> 1 confirmation
+                CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 25000 ZMG tx -> 1 confirmation
                 CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1]; // block where tx got MASTERNODE_MIN_CONFIRMATIONS
                 if (pConfIndex->GetBlockTime() > sigTime) {
                     LogPrintf("mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",

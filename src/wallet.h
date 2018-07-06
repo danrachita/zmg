@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 ZMINING Developers
+// Copyright (c) 2018 Zmining Community Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -75,7 +75,7 @@ enum AvailableCoinsType {
     ALL_COINS = 1,
     ONLY_DENOMINATED = 2,
     ONLY_NOT5000IFMN = 3,
-    ONLY_NONDENOMINATED_NOT5000IFMN = 4, // ONLY_NONDENOMINATED and not 3000 ZMG at the same time
+    ONLY_NONDENOMINATED_NOT5000IFMN = 4, // ONLY_NONDENOMINATED and not 25000 ZMG at the same time
     ONLY_5000 = 5                        // find masternode outputs including locked ones (use with caution)
 };
 
@@ -127,7 +127,7 @@ public:
     StringMap destdata;
 };
 
-/** 
+/**
  * A CWallet is an extension of a keystore, which also maintains a set of transactions and balances,
  * and provides the ability to create new transactions.
  */
@@ -169,9 +169,9 @@ public:
     bool HasCollateralInputs(bool fOnlyConfirmed = true) const;
     bool IsCollateralAmount(CAmount nInputAmount) const;
     int CountInputsWithAmount(CAmount nInputAmount);
-    string SendMoney(const CTxDestination &address, CAmount nValue, CWalletTx& wtxNew, bool fUseIX = false, bool burner = false); 
-    string SendMoneyToDestination(const CTxDestination& address, int64_t nValue, CWalletTx& wtxNew, bool fUseIX = false); 
- 
+    string SendMoney(const CTxDestination &address, CAmount nValue, CWalletTx& wtxNew, bool fUseIX = false, bool burner = false);
+    string SendMoneyToDestination(const CTxDestination& address, int64_t nValue, CWalletTx& wtxNew, bool fUseIX = false);
+
 
     bool SelectCoinsCollateral(std::vector<CTxIn>& setCoinsRet, CAmount& nValueRet) const;
 
@@ -363,7 +363,7 @@ public:
 
     void GetKeyBirthTimes(std::map<CKeyID, int64_t>& mapKeyBirth) const;
 
-    /** 
+    /**
      * Increment the next transaction order id
      * @return next transaction order id
      */
@@ -448,7 +448,7 @@ public:
     bool IsDenominatedAmount(CAmount nInputAmount) const;
 
     isminetype IsMine(const CTxIn& txin) const;
-    bool IsMine(const string& zmg_address); 
+    bool IsMine(const string& zmg_address);
     CAmount GetDebit(const CTxIn& txin, const isminefilter& filter) const;
     isminetype IsMine(const CTxOut& txout) const
     {
@@ -554,13 +554,13 @@ public:
     //! Get wallet transactions that conflict with given transaction (spend same outputs)
     std::set<uint256> GetConflicts(const uint256& txid) const;
 
-    /** 
+    /**
      * Address book entry changed.
      * @note called with lock cs_wallet held.
      */
     boost::signals2::signal<void(CWallet* wallet, const CTxDestination& address, const std::string& label, bool isMine, const std::string& purpose, ChangeType status)> NotifyAddressBookChanged;
 
-    /** 
+    /**
      * Wallet transaction added, removed or updated.
      * @note called with lock cs_wallet held.
      */
@@ -695,7 +695,7 @@ public:
     bool IsTransactionLockTimedOut() const;
 };
 
-/** 
+/**
  * A transaction with a bunch of additional info that only the owner cares about.
  * It includes any unrecorded transactions needed to link it back to the block chain.
  */
@@ -984,7 +984,7 @@ public:
             const CTxIn vin = CTxIn(hashTx, i);
 
             if (pwallet->IsSpent(hashTx, i) || pwallet->IsLockedCoin(hashTx, i)) continue;
-            if (fMasterNode && vout[i].nValue == 3000 * COIN) continue; // do not count MN-like outputs
+            if (fMasterNode && vout[i].nValue == 25000 * COIN) continue; // do not count MN-like outputs
 
             const int rounds = pwallet->GetInputObfuscationRounds(vin);
             if (rounds >= -2 && rounds < nObfuscationRounds) {
@@ -1241,7 +1241,7 @@ public:
 };
 
 
-/** 
+/**
  * Account information.
  * Stored in wallet with key "acc"+string account name.
  */
@@ -1272,7 +1272,7 @@ public:
 };
 
 
-/** 
+/**
  * Internal transfers.
  * Database key is acentry<account><counter>.
  */
