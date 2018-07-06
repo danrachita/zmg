@@ -1,9 +1,18 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX Developers, The ZMINING Developers
+// Copyright (c) 2015-2017 The PIVX Developers
+// Copyright (c) 2018-2018 The Zmining Community Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+//
+// Zmining ports:
+// Main: 30300
+// RPC Main: 30310
+// Test: 30301
+// Regtest: 30302
+// Unittest: 30303
+// RPC Test: 30312
 
 #include "chainparams.h"
 
@@ -87,15 +96,14 @@ public:
         networkID = CBaseChainParams::MAIN;
         strNetworkID = "main";
         nDefaultPort = 30300;
-
         pchMessageStart[0] = 0xe4;
         pchMessageStart[1] = 0xe2;
         pchMessageStart[2] = 0x1b;
         pchMessageStart[3] = 0x2a;
         vAlertPubKey = ParseHex("04479cded9997080ecd7adcaa7519e07f4b11210aa6ebddb861a181e25f42449f32ebe2452a999a7ce3b3bd98a0a003db8d7d53b664c375ada93ee534afd630d77");
-
         bnProofOfWorkLimit = ~uint256(0) >> 20;
-        nSubsidyHalvingInterval = 210000;
+        nSubsidyHalvingInterval = 64800; // Halving every 64800 blocks
+        nSubsidyBudgetPercentage = 5; //Must ben less than 100
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -104,7 +112,7 @@ public:
         nTargetTimespan = 1 * 60;
         nTargetSpacing = 1 * 60;
         nLastPOWBlock = 400;
-        nMaturity = 40;
+        nMaturity = 30;
         nMasternodeCountDrift = 20;
         nModifierUpdateBlock = 1;
         nMaxMoneyOut = 21000000 * COIN;
@@ -129,9 +137,8 @@ public:
         assert(hashGenesisBlock == uint256("0x00000e58a3aaeee30e2b7c92329915fdd354fc3bbc79f0a62d04952a64c5b1e4"));
         assert(genesis.hashMerkleRoot == uint256("0x338604e56d55fff7b97ac08c64c9a95b83de1764d684bc127c18e68cd8269d2d"));
 
-        vSeeds.push_back(CDNSSeedData("104.236.86.73", "104.236.86.73"));
-        vSeeds.push_back(CDNSSeedData("167.99.217.249", "167.99.217.249"));
-        vSeeds.push_back(CDNSSeedData("46.101.178.100", "46.101.178.100"));
+        vSeeds.push_back(CDNSSeedData("104.236.86.73", "104.236.86.73"));     //primary Zmining seeder
+        vSeeds.push_back(CDNSSeedData("167.99.217.249", "167.99.217.249"));   //secondary Zmining seeder
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 80);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 83);
@@ -144,8 +151,8 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = false;
-        fAllowMinDifficultyBlocks = true;
+        fMiningRequiresPeers = true;
+        fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
