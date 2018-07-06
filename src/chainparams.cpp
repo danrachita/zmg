@@ -117,7 +117,7 @@ public:
         nModifierUpdateBlock = 1;
         nMaxMoneyOut = 21000000 * COIN;
 
-        const char* pszTimestamp = "Bitcoin Mining is a peer2peer computer process - 9.05.2018";
+        const char* pszTimestamp = "Walter is the man - 06.07.2018";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -128,17 +128,17 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1525858200;
+        genesis.nTime = 1530870986;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 23972569;
+        genesis.nNonce = 0;
 
         hashGenesisBlock = genesis.GetHash();
 
-        assert(hashGenesisBlock == uint256("0x00000e58a3aaeee30e2b7c92329915fdd354fc3bbc79f0a62d04952a64c5b1e4"));
-        assert(genesis.hashMerkleRoot == uint256("0x338604e56d55fff7b97ac08c64c9a95b83de1764d684bc127c18e68cd8269d2d"));
+        assert(hashGenesisBlock == uint256("0x"));
+        assert(genesis.hashMerkleRoot == uint256("0x"));
 
-        vSeeds.push_back(CDNSSeedData("104.236.86.73", "104.236.86.73"));     //primary Zmining seeder
-        vSeeds.push_back(CDNSSeedData("167.99.217.249", "167.99.217.249"));   //secondary Zmining seeder
+        vSeeds.push_back(CDNSSeedData("104.40.156.80", "104.40.156.80"));     //primary Zmining seeder
+        vSeeds.push_back(CDNSSeedData("104.211.54.168", "104.211.54.168"));   //secondary Zmining seeder
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 80);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 83);
@@ -163,7 +163,7 @@ public:
         nPoolMaxTransactions = 3;
         strSporkKey = "041a46a9cba3219391978159517d5094696ff6a14dff39501a463c1c6384969f84ba6ab72acbd052d230186ef2c3994111fa7a92f8ed55e86b6624a5c0577618b9";
         strObfuscationPoolDummyAddress = "Z1CKRCSBCobXtuvUaaWK4PsTEYcVMcgYq";
-        nStartMasternodePayments = 1525858200;
+        nStartMasternodePayments = 1530870986;
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
